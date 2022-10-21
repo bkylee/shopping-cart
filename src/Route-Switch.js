@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import App from "./App";
 import Footer from "./components/Footer";
 import ShoppingCart from "./components/ShoppingCart";
+import Header from "./components/Header";
 
 
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Item from './classes/Item'
 import ShoppingCart from './components/ShoppingCart';
 import uniqid from 'uniqid';
@@ -8,7 +8,7 @@ const App = () => {
   //Item(name, price, style, imgsrc, quantity,type)
   //chairs for sale 
   const chair1 = Item('chair1', 20, 'cool',"tempsrc", 0, 'chair');
-  const chair2 = Item('chair2', 40, 'weird',"tempsrc", 0, 'chair');
+  const chair2 = Item('chair2', 40, 'weird',"tempsrc", 4, 'chair');
   const chair3 = Item('chair3', 15, 'expensive',"tempsrc", 0, 'chair');
   const chair4 = Item('chair4', 5, 'cheap',"tempsrc", 0, 'chair');
   const chair5 = Item('chair5', 40001123, 'lame',"tempsrc", 0, 'chair');
@@ -20,7 +20,7 @@ const App = () => {
   const chairs = [chair1, chair2, chair3, chair4, chair5, chair6, chair7, chair8, chair9]; 
 
   //hats for sale 
-  const hat1 = Item('hat1', 1, 'cool',0, 'hat');
+  const hat1 = Item('hat1', 1, 'cool',2, 'hat');
   const hat2 = Item('hat2', 3, 'cheap',0, 'hat');
   const hat3 = Item('hat3', 21, 'expensive', 0, 'hat');
   const hat4 = Item('hat4', 43, 'weird', 0, 'hat');
@@ -30,7 +30,7 @@ const App = () => {
 
   const hats = [hat1, hat2, hat3, hat4, hat5, hat6, hat7];
 
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([hat1, chair2]);
 
   const [showCart, setShow] = useState(false);
 
@@ -42,17 +42,22 @@ const App = () => {
     };
   };
 
-  const addCart = (item) =>{
+  const addCart = (item, quantity) =>{
+    addQuantity(item, quantity);
+    if (cart.includes(item)){
+      return;
+    }else{
     setCart(cart.concat(item));
   };
+};
   
-  const removeItem = (item) =>{
+  const removeItem = (index) =>{
     setCart(...prevCart => prevCart.splice(index, 1));
   };
 
-  const addQuantity = (itemName) =>{
+  const addQuantity = (itemName, quantity) =>{
         setCart(...prevCart=> prevCart.find(thing =>{if(thing === itemName){
-          thing.quantity++;
+          thing.quantity = thing.quantity + quantity;
         }
       })
       );
@@ -60,26 +65,26 @@ const App = () => {
 
   const reduceQuantity = (itemName) =>{
         setCart(...prevCart=> prevCart.find(thing =>{if(thing === itemName){
-          thing.quantity++;
+          thing.quantity--;
         }}));
   };
 
   const allItems = chairs.concat(hats);
-  let showItems = allItems.map(item =>{
+  
+  
+  return (
+    <>
+    <button type='button'>Sort</button>
+    <button type='button'>Filter</button>
+    {allItems.map((item) =>(
     <div className="products" key={uniqid()}>
       <img src={item.imgsrc} alt="" />
       <Link to={`/${item.type}/${item.name}`}>{item.name}</Link>
       <button type='button'>Add</button>
       <input type="number" min={1} max={20} />
     </div>
-  });
-  
-  return (
-    <>
-    <button type='button'>Sort</button>
-    <button type='button'>Filter</button>
-    {showItems}
-    {showCart ? <ShoppingCart /> : null}
+  ))}
+    {showCart ? <ShoppingCart cart={cart} removeItem={removeItem}/> : null}
     </>
   )
 }
