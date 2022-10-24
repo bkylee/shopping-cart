@@ -35,7 +35,7 @@ const App = () => {
 
   const allItems = chairs.concat(hats);
 
-  const [products, setProducts] = useState(allItems);
+  // const [products, setProducts] = useState(allItems);
 
   const [cart, setCart] = useState([]);
 
@@ -50,51 +50,26 @@ const App = () => {
   };
 
   const addCart = (item, quantity=1) =>{
-    if (cart.length === 0){ setCart(cart.push(item)) };
-    const isFound = cart.includes(item);
-    if(isFound === false){
-      setCart(cart.concat(item));
-    };
+    const isFound = cart.map(val=> val.name).indexOf(item.name);
+    if(isFound === -1){
+      setCart(cart.push(item));
+    }else{alert(`${item.name} has already been added to your cart`)};
     addQuantity(item, quantity);
   };
   
   const removeItem = (item) =>{
-    setCart(prevCart => {prevCart.filter(thing =>{
-      return thing !== item;
-    })
-  });
-    };
-
+    setCart(prevCart => (prevCart.filter(thing =>(thing !== item))))
+  };
+  
   const addQuantity = (item, number=1) =>{
     //check current quantity of item 
-      let current = cart.find((val) => val.name === item.name);
-      current = current.quantity + number;
-
-    const updated = cart.map(product =>{
-      if (product.name === item.name){
-        return {...product, quantity: current};
-      }
-      return product; 
-    });
-  setCart(updated);
+      // let current = cart.filter((val) => val.name === item.name);
+      // current = current.quantity + number;
+  setCart(cart.map(product =>(product === item ? {...product, quantity: product.quantity + number} : product)));
   };
 
   const reduceQuantity = (item) =>{
-    let current = cart.forEach(thing =>{
-      if (thing === item){
-        return thing.quantity;
-      }
-    });
-
-    current = current--;
-
-    const updated = cart.map(product =>{
-      if (product.name === item.name){
-        return {...product, quantity: current};
-      }
-      return product; 
-    })
-  setCart(updated);
+    setCart(cart.map(product =>(product === item ? {...product, quantity: product.quantity -1} : product)));
   };
 
   return (
