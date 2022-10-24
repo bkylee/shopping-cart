@@ -2,10 +2,8 @@ import React from 'react';
 import uniqid from 'uniqid';
 import { Link } from 'react-router-dom';
 
-const ShoppingCart = ({cart, removeItem}) => {
-    let total = cart.map(item=>{
-        total = total + item.price;
-    });
+const ShoppingCart = ({reduceQuantity, addQuantity, cart, removeItem}) => {
+   
     return (
     <>
         <h2>Cart</h2>
@@ -13,9 +11,11 @@ const ShoppingCart = ({cart, removeItem}) => {
         <li className='cartItem' key={uniqid()}>
             <img src={item.imgsrc} alt="" />
             <Link to={`/${item.type}/${item.name}`}></Link>{item.name} {item.quantity} {item.price}
-            <button type='button' onClick={removeItem}>Remove item</button>
+            <button type='button' onClick={reduceQuantity(item)}>-</button>
+            <button type='button' onClick={addQuantity(item, 1)}>+</button>
+            <button type='button' onClick={()=>removeItem(item)}>Remove item</button>
             </li>))}
-        <div>Total: {total}</div>
+        <div>Total: {cart?.reduce((a,v)=> a = a + v.price, 0)}</div>
         <button type='button'>Checkout</button> 
     </>
   )
