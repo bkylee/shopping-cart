@@ -3,37 +3,27 @@ import Item from './classes/Item'
 import ShoppingCart from './components/ShoppingCart';
 import { Route, Routes, Link } from 'react-router-dom';
 import Header from './components/Header';
-import Footer from './components/Footer'
 import NotFound from './components/NotFound'
 import ShowProducts from './components/ShowProducts';
+import Welcome from './components/Welcome';
 
 const App = () => {
   //Item(name, price, style, imgsrc, quantity,type)
   //chairs for sale 
-  const chair1 = Item('chair1', 20, 'cool',"tempsrc", 0, 'chair');
-  const chair2 = Item('chair2', 40, 'weird',"tempsrc", 4, 'chair');
-  const chair3 = Item('chair3', 15, 'expensive',"tempsrc", 0, 'chair');
-  const chair4 = Item('chair4', 5, 'cheap',"tempsrc", 0, 'chair');
-  const chair5 = Item('chair5', 40001123, 'lame',"tempsrc", 0, 'chair');
-  const chair6 = Item('chair6', 120, 'cheap',"tempsrc", 0, 'chair');
-  const chair7 = Item('chair7', 85, 'cheap',"tempsrc", 0, 'chair');
-  const chair8 = Item('chair8', 420, 'weird',"tempsrc", 0, 'chair');
-  const chair9 = Item('chair9', 96, 'weird',"tempsrc", 0, 'chair'); 
+  const chair = Item('chair', 20, 'cool',"https://canadel.com/wp-content/uploads/CNN090390303EVE-1.png", 0);
+  const bottle = Item('bottle', 40, 'weird',"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HQ222?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1654034080576", 0);
+  const car = Item('car', 15, 'expensive',"https://img.autobytel.com/chrome/multiview/white/640/2022kic11_640/2022kic110001_640_01.jpg", 0);
+  const hat = Item('hat', 5, 'cheap',"https://cdn.shopify.com/s/files/1/0239/6805/products/EV20191022-01-B_1200x1200.png?v=1571755280", 0);
+  const jacket = Item('jacket', 40001123, 'lame',"https://workwear-usa.com/wp-content/uploads/2020/04/493925179992.jpg", 0);
+  const keyboard = Item('keyboard', 120, 'cheap',"https://p2-ofp.static.pub/ShareResource/560x450/SSNP/4X30M86879/4X30M86879-560x450-01.9ee25905822c6d94.png", 0);
+  const mouse = Item('mouse', 85, 'cheap',"https://media.steelseriescdn.com/thumbs/filer_public/00/0c/000c589d-c620-4e24-9c94-fedfa1bc65d8/imgbuy_qck_neo_nior_002.png__1920x1080_crop-fit_optimize_subsampling-2.png", 0,);
+  const pc = Item('pc', 420, 'weird',"https://m.media-amazon.com/images/I/816hWrUTvML._AC_SX679_.jpg", 0,);
+  const pillow= Item('chair9', 96, 'weird',"https://m.media-amazon.com/images/I/61VxFel4T9L._AC_SX522_.jpg", 0,); 
+  const socks= Item('socks', 2301, 'cool', 'https://balenciaga.dam.kering.com/m/3b76f3ae47015493/Thumbnail-530580472B49060_F.jpg?v=5', 0); 
+  const sword= Item('sword', 1, 'dangerous', 'https://cdn.shopify.com/s/files/1/0035/3281/6495/products/4_c0a8080d-bb1c-483a-95bd-d88502bcc2b3_300x.png?v=1649690780', 0);
+  const table= Item('table', 596, 'weird', 'https://m.media-amazon.com/images/I/61cJPcufGbL._AC_SL1500_.jpg', 0);
 
-  const chairs = [chair1, chair2, chair3, chair4, chair5, chair6, chair7, chair8, chair9]; 
-
-  //hats for sale 
-  const hat1 = Item('hat1', 1, 'cool',"tempsrc",0,'hat');
-  const hat2 = Item('hat2', 3, 'cheap',"tempsrc",0, 'hat');
-  const hat3 = Item('hat3', 21, 'expensive',"tempsrc", 0, 'hat');
-  const hat4 = Item('hat4', 43, 'weird',"tempsrc", 0, 'hat');
-  const hat5 = Item('hat5', 98, 'expensive',"tempsrc", 0, 'hat');
-  const hat6 = Item('hat6', 1123, 'cool', "tempsrc", 0, 'hat');
-  const hat7 = Item('hat7', 5, 'cool', "tempsrc", 0, 'hat');
-
-  const hats = [hat1, hat2, hat3, hat4, hat5, hat6, hat7];
-
-  const allItems = chairs.concat(hats);
+  const allItems = [chair, bottle, car, hat, jacket, keyboard, mouse, pc, pillow, socks, sword, table]
 
   // const [products, setProducts] = useState(allItems);
 
@@ -74,14 +64,12 @@ const App = () => {
 
   return (
     <>
-        <Link to="/">The SHOP</Link>
-        <Link to="/cart">Cart</Link>
+    <Header />
     <Routes>
-        <Route element={<Header />} />
-        <Route path='*' element={<NotFound />} />
-        <Route path="/" element={<ShowProducts addQuantity={addQuantity} reduceQuantity={reduceQuantity} toggleShow={toggleShow} addCart={addCart} showCart={showCart} cart={cart} allItems={allItems} removeItem={removeItem}/>} />
+        <Route path='/' element={<Welcome />} />
+        <Route path="/shop" element={<ShowProducts addQuantity={addQuantity} reduceQuantity={reduceQuantity} toggleShow={toggleShow} addCart={addCart} showCart={showCart} cart={cart} allItems={allItems} removeItem={removeItem}/>}/>
         <Route path="/cart" element={<ShoppingCart  addQuantity={addQuantity} reduceQuantity={reduceQuantity} cart={cart} removeItem={removeItem}/>} />
-        <Route element={<Footer />} />
+        <Route path='*' element={<NotFound />} />
     </Routes>
     </>
   )

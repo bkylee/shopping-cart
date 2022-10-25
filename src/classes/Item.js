@@ -1,6 +1,6 @@
-const Item = (name, price, style, imgsrc, quantity, type) =>{
+const Item = (name, price, style, imgsrc, quantity) =>{
     return{
-        name, price, style, imgsrc, quantity, type
+        name, price, style, imgsrc, quantity
     };
 };
 
