@@ -3,7 +3,7 @@ import uniqid from 'uniqid';
 import { Link } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart';
 
-const ShowProducts = ({addQuantity, reduceQuantity, toggleShow, showCart, addCart, allItems, cart, removeItem}) => {
+const ShowProducts = ({total, addQuantity, reduceQuantity, toggleShow, showCart, addCart, allItems, cart, removeItem}) => {
   return (
   <>
   <div id='headButts'>
@@ -12,12 +12,12 @@ const ShowProducts = ({addQuantity, reduceQuantity, toggleShow, showCart, addCar
       <button type='button' onClick={toggleShow}>Cart</button>
     </div>
     <div id='main'>
-    {showCart ? <ShoppingCart addQuantity={addQuantity} reduceQuantity={reduceQuantity} cart={cart} removeItem={removeItem}/> : null}
+    {showCart ? <ShoppingCart total={total} addQuantity={addQuantity} reduceQuantity={reduceQuantity} cart={cart} removeItem={removeItem}/> : null}
       <div id='products'>
       {allItems.map((item) =>(
       <div className="product" key={uniqid()}>
         <div className='prodLinks'>
-        <Link className='link' to={`/${item.name}`}><img src={item.imgsrc}></img>{item.name}</Link>
+        <Link className='link' to={`/${item.name}`}><img src={item.imgsrc}></img>{item.name} ${item.price}</Link>
         <button type='button' onClick={()=>addCart(item)}>Add</button>
         {/* <input className='numbProd' type="number" min={1} max={20} />    WIP*/}
         </div>

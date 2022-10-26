@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Item from './classes/Item'
 import ShoppingCart from './components/ShoppingCart';
 import { Route, Routes, Link } from 'react-router-dom';
@@ -31,6 +31,8 @@ const App = () => {
 
   const [showCart, setShow] = useState(false);
 
+  const [total, setTotal] = useState(0);
+
   const toggleShow = () =>{
     if(showCart){
       setShow(false);
@@ -38,6 +40,11 @@ const App = () => {
       setShow(true);
     };
   };
+
+
+  useEffect(() => {
+    setTotal(cart?.reduce((a,v)=> a = a + (v.price * v.quantity), 0));
+  }, [cart]);
 
   const addCart = (item, quantity=1) =>{
     const isFound = cart.map(val=> val.name).indexOf(item.name);
@@ -67,8 +74,8 @@ const App = () => {
     <Header />
     <Routes>
         <Route path='/' element={<Welcome />} />
-        <Route path="/shop" element={<ShowProducts addQuantity={addQuantity} reduceQuantity={reduceQuantity} toggleShow={toggleShow} addCart={addCart} showCart={showCart} cart={cart} allItems={allItems} removeItem={removeItem}/>}/>
-        <Route path="/cart" element={<ShoppingCart  addQuantity={addQuantity} reduceQuantity={reduceQuantity} cart={cart} removeItem={removeItem}/>} />
+        <Route path="/shop" element={<ShowProducts total={total} addQuantity={addQuantity} reduceQuantity={reduceQuantity} toggleShow={toggleShow} addCart={addCart} showCart={showCart} cart={cart} allItems={allItems} removeItem={removeItem}/>}/>
+        <Route path="/cart" element={<ShoppingCart  total={total} addQuantity={addQuantity} reduceQuantity={reduceQuantity} cart={cart} removeItem={removeItem}/>} />
         <Route path='*' element={<NotFound />} />
     </Routes>
     </>

@@ -2,12 +2,14 @@ import React from 'react';
 import uniqid from 'uniqid';
 import { Link } from 'react-router-dom';
 
-const ShoppingCart = ({reduceQuantity, addQuantity, cart, removeItem}) => {
+const ShoppingCart = ({total, reduceQuantity, addQuantity, cart, removeItem}) => {
+
+    
     return (
     <>
     <div id='cart'>
         <h2>Cart</h2>
-        <div id='total'>Total: ${cart?.reduce((a,v)=> a = a + v.price, 0)} <Link to='/cart'>Checkout</Link> </div>
+        <div id='total'>Total: ${total} <Link to='/cart'>Checkout</Link> </div>
         <ul>
         {cart.map((item) =>(
         <li className='cartItem' key={uniqid()}>
