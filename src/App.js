@@ -74,8 +74,8 @@ const App = () => {
     <Header />
     <Routes>
         <Route path='/shopping-cart' element={<Welcome />} />
-        <Route path="/shopping-cart/shop" element={<ShowProducts total={total} addQuantity={addQuantity} reduceQuantity={reduceQuantity} toggleShow={toggleShow} addCart={addCart} showCart={showCart} cart={cart} allItems={allItems} removeItem={removeItem}/>}/>
-        <Route path="/shopping-cart/cart" element={<ShoppingCart  total={total} addQuantity={addQuantity} reduceQuantity={reduceQuantity} cart={cart} removeItem={removeItem}/>} />
+        <Route path="/shop" element={<ShowProducts total={total} addQuantity={addQuantity} reduceQuantity={reduceQuantity} toggleShow={toggleShow} addCart={addCart} showCart={showCart} cart={cart} allItems={allItems} removeItem={removeItem}/>}/>
+        <Route path="/cart" element={<ShoppingCart  total={total} addQuantity={addQuantity} reduceQuantity={reduceQuantity} cart={cart} removeItem={removeItem}/>} />
         <Route path='*' element={<NotFound />} />
     </Routes>
     </>
